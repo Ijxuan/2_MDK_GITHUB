@@ -205,7 +205,6 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
-   CAN_RxTypedef CAN_RxMessage;
 
 /**
   * @brief This function handles CAN1 RX0 interrupts.
