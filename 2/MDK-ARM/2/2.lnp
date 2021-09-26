@@ -31,6 +31,7 @@
 "2\bsp_can.o"
 "2\m2006_motor.o"
 "2\pid.o"
+"2\gm6020_motor.o"
 "2\control.o"
 --library_type=microlib --strict --scatter "2\2.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

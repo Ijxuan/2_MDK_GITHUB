@@ -40,3 +40,4 @@
 2\control.o: ../Core/Inc/main.h
 2\control.o: ..\bsp\M2006_Motor.h
 2\control.o: ..\bsp\PID.h
+2\control.o: ..\bsp\GM6020_Motor.h

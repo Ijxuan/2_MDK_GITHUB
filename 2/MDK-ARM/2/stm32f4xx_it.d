@@ -40,3 +40,4 @@
 2\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
 2\stm32f4xx_it.o: ..\bsp\M2006_Motor.h
 2\stm32f4xx_it.o: ..\APP\control.h
+2\stm32f4xx_it.o: ..\bsp\GM6020_Motor.h

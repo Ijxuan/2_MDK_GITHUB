@@ -32,6 +32,8 @@
 #include "M2006_Motor.h"
 #include "PID.h"
 #include "control.h"
+#include "GM6020_Motor.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -157,13 +159,13 @@ int main(void)
 //		  Debug_addData(mubiaosudu3,5);//目标速度
 //		   Debug_addData(PID_Ki_out,6); //积分累计误差
 //		   Debug_addData(PID_ERR,7); //积分累计误差
-//		  		  Debug_addData(my_angle,1);//速度
-//	  		Debug_addData(my_speed,2);//角度
-//	  		Debug_addData(my_current,3);//转矩
-// 	  		Debug_addData(turnCount3,4);//
+		  		  Debug_addData(my_6020array[1].realSpeed,1);//速度
+	  		Debug_addData(mubiaosudu3,2);//角度
+	  		Debug_addData(my_current,3);//转矩
+ 	  		Debug_addData(turnCount3,4);//
 
 
-//	  		Debug_show(4);
+	  		Debug_show(4);
 	  }
 	  HAL_Delay(35);
 //	  HAL_Delay(1000);

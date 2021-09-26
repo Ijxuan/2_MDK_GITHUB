@@ -32,6 +32,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
+#include "GM6020_Motor.h"
 
 /* USER CODE END TD */
 
@@ -212,6 +213,8 @@ void SysTick_Handler(void)
 void CAN1_RX0_IRQHandler(void)
 {
   /* USER CODE BEGIN CAN1_RX0_IRQn 0 */
+	   CAN_RxTypedef CAN_RxMessage;
+			uint32_t ID;
 	if (__HAL_CAN_GET_IT_SOURCE(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING))
 	{
 		/*接收CAN的数据到对应解析结构体中*/
@@ -219,13 +222,18 @@ void CAN1_RX0_IRQHandler(void)
 		HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0,
 			&CAN_RxMessage.CAN_RxHeader,
 			CAN_RxMessage.CAN_RxMessage);
-//				my_angle       = ((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
+				ID = CAN_RxMessage.CAN_RxHeader.StdId;
+			if(ID==0x206)//GM6020_ID2
+			{
+		MY_M6020_getInfo(CAN_RxMessage);
+			}
+				//				my_angle       = ((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
 //      my_speed = (CAN_RxMessage.CAN_RxMessage[3]);
 //    my_current = (CAN_RxMessage.CAN_RxMessage[5]);
-		my_angle       = (uint16_t)((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
-      my_speed = (int16_t)((CAN_RxMessage.CAN_RxMessage[2] << 8) | CAN_RxMessage.CAN_RxMessage[3]);
-    my_current = (int16_t)((CAN_RxMessage.CAN_RxMessage[4] << 8) | CAN_RxMessage.CAN_RxMessage[5]);
-//   turnCount3          =   CAN_RxMessage.CAN_RxMessage[6];
+//		my_angle       = (uint16_t)((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
+//      my_speed = (int16_t)((CAN_RxMessage.CAN_RxMessage[2] << 8) | CAN_RxMessage.CAN_RxMessage[3]);
+//    my_current = (int16_t)((CAN_RxMessage.CAN_RxMessage[4] << 8) | CAN_RxMessage.CAN_RxMessage[5]);
+////   turnCount3          =   CAN_RxMessage.CAN_RxMessage[6];
 //					M2006_getInfo(CAN_RxMessage);
 can1zdcs++;
 

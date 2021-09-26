@@ -47,3 +47,4 @@
 2\main.o: ..\bsp\M2006_Motor.h
 2\main.o: ..\bsp\PID.h
 2\main.o: ..\APP\control.h
+2\main.o: ..\bsp\GM6020_Motor.h

@@ -562,6 +562,11 @@
               <FileType>1</FileType>
               <FilePath>..\bsp\PID.c</FilePath>
             </File>
+            <File>
+              <FileName>GM6020_Motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\bsp\GM6020_Motor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
