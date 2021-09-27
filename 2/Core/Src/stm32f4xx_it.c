@@ -235,7 +235,6 @@ void CAN1_RX0_IRQHandler(void)
 //    my_current = (int16_t)((CAN_RxMessage.CAN_RxMessage[4] << 8) | CAN_RxMessage.CAN_RxMessage[5]);
 ////   turnCount3          =   CAN_RxMessage.CAN_RxMessage[6];
 //					M2006_getInfo(CAN_RxMessage);
-can1zdcs++;
 
 //    xQueueSendToBackFromISR(xQueueCanReceive,&CAN_RxMessage,0);//把接收数据发给接收队列
 
@@ -336,8 +335,10 @@ static uint8_t rxBuf[30]; //接收缓冲区
 		  
 		  if (htim->Instance == TIM7)
 			  {
-           my_2006_control();
+//				  can1zdcs++;
 
+//           my_2006_control();
+			my_6020_control();
 		       }  
 		  
 }

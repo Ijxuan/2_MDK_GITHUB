@@ -77,9 +77,9 @@ int last_turnCount3=0;//上一次圈数
 int mbsudu3=0;
 int minibalencedebug=1;//是否开启minibalence_debug
 int mubiaosudu3=0;//目标速度3
-float speed_kp=4.2;//2.7不会超调太多
-float speed_ki=1.5;
-float speed_kd=1;
+float speed_kp=0;//2.7不会超调太多
+float speed_ki=0;
+float speed_kd=0;
 int jfxf=0;//积分限幅
 int PID_Ki_out=0;
 int PID_ERR=0;
@@ -109,6 +109,7 @@ int main(void)
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
+	
 
   /* Configure the system clock */
   SystemClock_Config();
@@ -144,6 +145,9 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   	  PositionPID_paraReset(&M2006_Reload.pid_speed, speed_kp, speed_ki, speed_kd, 10000, jfxf);//1.2 0 0.3
 	  PositionPID_paraReset(&M2006_Reload.pid_angle, 0.3f, 0.0f, 0.0f, 3000, 2000);//0.12
+  	 PositionPID_paraReset(&GM_6020_angle, speed_kp, speed_ki, speed_kd,4000, jfxf);//1.2 0 0.3
+	 PositionPID_paraReset(&GM_6020_speed, 5.8, 0, 0, 29000, 11111);//1.2 0 0.3
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -160,17 +164,18 @@ int main(void)
 //		   Debug_addData(PID_Ki_out,6); //积分累计误差
 //		   Debug_addData(PID_ERR,7); //积分累计误差
 		  		  Debug_addData(my_6020array[1].realSpeed,1);//速度
-	  		Debug_addData(mubiaosudu3,2);//角度
+	  		Debug_addData(mubiaosudu3,2);//角度  外环入口值
 	  		Debug_addData(my_current,3);//转矩
- 	  		Debug_addData(turnCount3,4);//
+ 	  		Debug_addData(my_6020array[1].totalAngle,4);//
+ 	  		Debug_addData(targe_angle,5);//
 
 
-	  		Debug_show(4);
+	  		Debug_show(5);
 	  }
 	  HAL_Delay(35);
 //	  HAL_Delay(1000);
 //	  shijieshij++;
-//	  zhenlv=can1zdcs/shijieshij;
+//	  zhenlv=can1zdcs/1000;
 	  #if 0
 	  //位置式PID
 	  for(int i=0;i<40;i++)
