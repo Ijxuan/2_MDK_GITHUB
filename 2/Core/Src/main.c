@@ -109,7 +109,6 @@ int main(void)
   /* USER CODE BEGIN Init */
 
   /* USER CODE END Init */
-	
 
   /* Configure the system clock */
   SystemClock_Config();
@@ -126,6 +125,7 @@ int main(void)
   MX_UART7_Init();
   MX_CAN1_Init();
   MX_TIM7_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 //	Debug_RegisterVar(&f32,"f32",DVar_Float); //注册调试变量	err_int
 		Debug_RegisterVar(&err_int,"err_int",DVar_Int8);
@@ -138,7 +138,10 @@ int main(void)
 
     /*使能定时器1中断*/
     HAL_TIM_Base_Start_IT(&htim7);
-
+	
+	
+__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
+HAL_DMA_Start(huart1,(uint32_t)&USART1->DR,(uint32_t)DR16Buffer,DR16BufferNumber);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -146,7 +149,7 @@ int main(void)
   	  PositionPID_paraReset(&M2006_Reload.pid_speed, speed_kp, speed_ki, speed_kd, 10000, jfxf);//1.2 0 0.3
 	  PositionPID_paraReset(&M2006_Reload.pid_angle, 0.3f, 0.0f, 0.0f, 3000, 2000);//0.12
   	 PositionPID_paraReset(&GM_6020_angle, speed_kp, speed_ki, speed_kd,4000, jfxf);//1.2 0 0.3
-	 PositionPID_paraReset(&GM_6020_speed, 5.8, 0, 0, 29000, 11111);//1.2 0 0.3
+	 PositionPID_paraReset(&GM_6020_speed, 5.8, 0, 0, 29000, 29000);//1.2 0 0.3
 
   while (1)
   {

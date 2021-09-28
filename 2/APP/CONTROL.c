@@ -7,6 +7,10 @@
 int my_6020_try=0;
 int  last_tuen=0;
 int max_angle;
+uint8_t DR16Buffer[DR16BufferNumber];
+
+
+
 void my_2006_control(void)
 {
 		  ///////Œª÷√ ΩPID+CANSEED
