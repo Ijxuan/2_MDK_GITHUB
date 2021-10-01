@@ -33,7 +33,7 @@
 #include "PID.h"
 #include "control.h"
 #include "GM6020_Motor.h"
-
+#include "DR16_RECIVE.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -89,6 +89,8 @@ int chazhi=0;
 int16_t my_speed=0;//sudu
 uint16_t my_angle=0;//jd
 int16_t my_current=0;//
+int time_every1ms=0;
+int time_every1s=0;
 /* USER CODE END 0 */
 
 /**
@@ -139,9 +141,8 @@ int main(void)
     /*使能定时器1中断*/
     HAL_TIM_Base_Start_IT(&htim7);
 	
-	
-__HAL_UART_ENABLE_IT(&huart1,UART_IT_IDLE);
-HAL_DMA_Start(huart1,(uint32_t)&USART1->DR,(uint32_t)DR16Buffer,DR16BufferNumber);
+	usart1_dr16_init();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -149,7 +150,8 @@ HAL_DMA_Start(huart1,(uint32_t)&USART1->DR,(uint32_t)DR16Buffer,DR16BufferNumber
   	  PositionPID_paraReset(&M2006_Reload.pid_speed, speed_kp, speed_ki, speed_kd, 10000, jfxf);//1.2 0 0.3
 	  PositionPID_paraReset(&M2006_Reload.pid_angle, 0.3f, 0.0f, 0.0f, 3000, 2000);//0.12
   	 PositionPID_paraReset(&GM_6020_angle, speed_kp, speed_ki, speed_kd,4000, jfxf);//1.2 0 0.3
-	 PositionPID_paraReset(&GM_6020_speed, 5.8, 0, 0, 29000, 29000);//1.2 0 0.3
+	 PositionPID_paraReset(&GM_6020_speed, 0, 8, 0, 29000, 29000);//1.2 0 0.3
+								//			5.8  0  0  29000 29000
 
   while (1)
   {
@@ -166,19 +168,25 @@ HAL_DMA_Start(huart1,(uint32_t)&USART1->DR,(uint32_t)DR16Buffer,DR16BufferNumber
 //		  Debug_addData(mubiaosudu3,5);//目标速度
 //		   Debug_addData(PID_Ki_out,6); //积分累计误差
 //		   Debug_addData(PID_ERR,7); //积分累计误差
-		  		  Debug_addData(my_6020array[1].realSpeed,1);//速度
+		  		  Debug_addData(my_6020array[0].realSpeed,1);//速度
 	  		Debug_addData(mubiaosudu3,2);//角度  外环入口值
-	  		Debug_addData(my_current,3);//转矩
- 	  		Debug_addData(my_6020array[1].totalAngle,4);//
- 	  		Debug_addData(targe_angle,5);//
+	  		Debug_addData(shijieshij,3);//转矩
+// 	  		Debug_addData(my_6020array[1].totalAngle,4);//
+// 	  		Debug_addData(can1zdcs,5);//
 
 
-	  		Debug_show(5);
+//	  		Debug_show(3);
 	  }
-	  HAL_Delay(35);
+	   NM_swj();
+
+	  HAL_Delay(1);
+	  NM_swj2();
+	  	  HAL_Delay(1);
+
 //	  HAL_Delay(1000);
-//	  shijieshij++;
-//	  zhenlv=can1zdcs/1000;
+//	  can1zdcs=0;
+//	  shijieshij++;//用hal——delay完成的秒计时
+//	  zhenlv=can1zdcs/shijieshij;//can接收秒帧率
 	  #if 0
 	  //位置式PID
 	  for(int i=0;i<40;i++)

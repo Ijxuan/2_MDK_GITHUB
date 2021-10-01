@@ -33,6 +33,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
 #include "GM6020_Motor.h"
+#include "DR16_RECIVE.h"
 
 /* USER CODE END TD */
 
@@ -67,6 +68,7 @@ extern TIM_HandleTypeDef htim7;
 extern DMA_HandleTypeDef hdma_usart1_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
 extern DMA_HandleTypeDef hdma_usart6_rx;
+extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart6;
 /* USER CODE BEGIN EV */
 
@@ -219,15 +221,22 @@ void CAN1_RX0_IRQHandler(void)
 	if (__HAL_CAN_GET_IT_SOURCE(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING))
 	{
 		/*接收CAN的数据到对应解析结构体中*/
-		CAN_RxMessage.CANx = 1;
-		HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0,
-			&CAN_RxMessage.CAN_RxHeader,
-			CAN_RxMessage.CAN_RxMessage);
-				ID = CAN_RxMessage.CAN_RxHeader.StdId;
-			if(ID==0x206)//GM6020_ID2
+					CAN_RxMessage.CANx = 1;
+					HAL_CAN_GetRxMessage(&hcan1, CAN_RX_FIFO0,
+					&CAN_RxMessage.CAN_RxHeader,
+					CAN_RxMessage.CAN_RxMessage);
+					ID = CAN_RxMessage.CAN_RxHeader.StdId;
+					can1zdcs++;
+
+//			if(ID==0x206)//GM6020_ID2
+			if(ID==0x205)//GM6020_ID1
+				
 			{
 		MY_M6020_getInfo(CAN_RxMessage);
 			}
+						my_6020_control();
+
+			
 				//				my_angle       = ((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
 //      my_speed = (CAN_RxMessage.CAN_RxMessage[3]);
 //    my_current = (CAN_RxMessage.CAN_RxMessage[5]);
@@ -242,10 +251,24 @@ void CAN1_RX0_IRQHandler(void)
 		__HAL_CAN_CLEAR_FLAG(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 	}
   /* USER CODE END CAN1_RX0_IRQn 0 */
-  HAL_CAN_IRQHandler(&hcan1);
+//  HAL_CAN_IRQHandler(&hcan1);
   /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
 
   /* USER CODE END CAN1_RX0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles USART1 global interrupt.
+  */
+void USART1_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART1_IRQn 0 */
+DR_16hander(&huart1);
+  /* USER CODE END USART1_IRQn 0 */
+//  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 /**
@@ -350,10 +373,9 @@ static uint8_t rxBuf[30]; //接收缓冲区
 		  
 		  if (htim->Instance == TIM7)
 			  {
-//				  can1zdcs++;
-
+				  	  time_every1s=time_every1ms/1000;//用1ms中断完成秒计时
+			time_every1ms++;
 //           my_2006_control();
-			my_6020_control();
 		       }  
 		  
 }

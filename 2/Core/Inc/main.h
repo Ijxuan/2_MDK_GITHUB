@@ -68,6 +68,9 @@ extern uint16_t last_ang;
 extern int16_t my_speed;//sudu
 extern uint16_t my_angle;//jd
 extern int16_t my_current;//
+extern int time_every1ms;
+extern int time_every1s;
+
 //#define xQueueSendToBackFromISR( xQueue, pvItemToQueue, pxHigherPriorityTaskWoken ) xQueueGenericSendFromISR( ( xQueue ), ( pvItemToQueue ), ( pxHigherPriorityTaskWoken ), queueSEND_TO_BACK )
 
 /* USER CODE END ET */
