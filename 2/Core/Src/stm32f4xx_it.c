@@ -236,17 +236,6 @@ void CAN1_RX0_IRQHandler(void)
 			}
 						my_6020_control();
 
-			
-				//				my_angle       = ((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
-//      my_speed = (CAN_RxMessage.CAN_RxMessage[3]);
-//    my_current = (CAN_RxMessage.CAN_RxMessage[5]);
-//		my_angle       = (uint16_t)((CAN_RxMessage.CAN_RxMessage[0] << 8) | CAN_RxMessage.CAN_RxMessage[1]);
-//      my_speed = (int16_t)((CAN_RxMessage.CAN_RxMessage[2] << 8) | CAN_RxMessage.CAN_RxMessage[3]);
-//    my_current = (int16_t)((CAN_RxMessage.CAN_RxMessage[4] << 8) | CAN_RxMessage.CAN_RxMessage[5]);
-////   turnCount3          =   CAN_RxMessage.CAN_RxMessage[6];
-//					M2006_getInfo(CAN_RxMessage);
-
-//    xQueueSendToBackFromISR(xQueueCanReceive,&CAN_RxMessage,0);//把接收数据发给接收队列
 
 		__HAL_CAN_CLEAR_FLAG(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 	}

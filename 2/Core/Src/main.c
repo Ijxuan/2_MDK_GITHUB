@@ -152,6 +152,7 @@ int main(void)
   	 PositionPID_paraReset(&GM_6020_angle, speed_kp, speed_ki, speed_kd,4000, jfxf);//1.2 0 0.3
 	 PositionPID_paraReset(&GM_6020_speed, 0, 8, 0, 29000, 29000);//1.2 0 0.3
 								//			5.8  0  0  29000 29000
+	  HAL_Delay(200);
 
   while (1)
   {

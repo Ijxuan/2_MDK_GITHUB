@@ -13,10 +13,15 @@
 #include "Debug_DataScope.h"
 #include "BSP_CAN.h"
 M2006s_t M2006_Reload;//拨盘运输电机
+M2006s_t M2006_A;//拨盘运输电机
+M2006s_t M2006_B;//拨盘运输电机
+M2006s_t M2006_C;//拨盘运输电机
+M2006s_t M2006_D;//拨盘运输电机
 
 //M2006s_t M2006s[4];
 
-M2006s_t *M2006_Array[] = {&M2006_Reload};
+M2006s_t *M2006_Array[] = {&M2006_A,&M2006_B,&M2006_C,&M2006_D};
+//M2006s_t M2006_Array[4] ;
 
 #define M2006_Amount  1 //对应上面。
 
