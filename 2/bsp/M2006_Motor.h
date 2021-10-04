@@ -20,8 +20,11 @@
 
 
 
-extern M2006s_t M2006_Reload;
-
+extern M2006s_t  *M2006_Array[];
+extern M2006s_t M2006_A;//拨盘运输电机
+extern M2006s_t M2006_B;//拨盘运输电机
+extern M2006s_t M2006_C;//拨盘运输电机
+extern M2006s_t M2006_D;//拨盘运输电机
 //extern M2006s_t M2006s[4];
 
 //M2006与6623共用发送函数

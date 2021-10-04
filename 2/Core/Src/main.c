@@ -147,12 +147,19 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  	  PositionPID_paraReset(&M2006_Reload.pid_speed, speed_kp, speed_ki, speed_kd, 10000, jfxf);//1.2 0 0.3
-	  PositionPID_paraReset(&M2006_Reload.pid_angle, 0.3f, 0.0f, 0.0f, 3000, 2000);//0.12
+  	  PositionPID_paraReset(&M2006_A.pid_speed, speed_kp, speed_ki, speed_kd, 10000, jfxf);//1.2 0 0.3
+  	  PositionPID_paraReset(&M2006_B.pid_speed, speed_kp+1, speed_ki, speed_kd, 10000, jfxf);//1.2 0 0.3
+  	  PositionPID_paraReset(&M2006_C.pid_speed, speed_kp, speed_ki+2, speed_kd, 10000, jfxf);//1.2 0 0.3
+  	  PositionPID_paraReset(&M2006_D.pid_speed, speed_kp, speed_ki, speed_kd+3, 10000, jfxf);//1.2 0 0.3
+
+
+
+
+//	  PositionPID_paraReset(&M2006_A.pid_angle, 0.3f, 0.0f, 0.0f, 3000, 2000);//0.12
   	 PositionPID_paraReset(&GM_6020_angle, speed_kp, speed_ki, speed_kd,4000, jfxf);//1.2 0 0.3
 	 PositionPID_paraReset(&GM_6020_speed, 0, 8, 0, 29000, 29000);//1.2 0 0.3
 								//			5.8  0  0  29000 29000
-	  HAL_Delay(200);
+	  HAL_Delay(500);
 
   while (1)
   {

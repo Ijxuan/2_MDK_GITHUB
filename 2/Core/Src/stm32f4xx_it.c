@@ -229,15 +229,19 @@ void CAN1_RX0_IRQHandler(void)
 					can1zdcs++;
 
 //			if(ID==0x206)//GM6020_ID2
-			if(ID==0x205)//GM6020_ID1
-				
-			{
-		MY_M6020_getInfo(CAN_RxMessage);
-			}
-						my_6020_control();
+					if(ID==0x205)//GM6020_ID1
 
+					{
+					MY_M6020_getInfo(CAN_RxMessage);
+					my_6020_control();
+					}
+					else
+					{		
 
-		__HAL_CAN_CLEAR_FLAG(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
+					M2006_getInfo(CAN_RxMessage);
+					}	
+					
+					__HAL_CAN_CLEAR_FLAG(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 	}
   /* USER CODE END CAN1_RX0_IRQn 0 */
 //  HAL_CAN_IRQHandler(&hcan1);
@@ -355,7 +359,7 @@ static uint8_t rxBuf[30]; //接收缓冲区
 
   /* USER CODE END USART6_IRQn 1 */
 }
-
+int text_2006_speed=0;
 /* USER CODE BEGIN 1 */
       void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -364,6 +368,7 @@ static uint8_t rxBuf[30]; //接收缓冲区
 			  {
 				  	  time_every1s=time_every1ms/1000;//用1ms中断完成秒计时
 			time_every1ms++;
+				  M2006_setCurrent(text_2006_speed,0,0,0);
 //           my_2006_control();
 		       }  
 		  
