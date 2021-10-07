@@ -33,7 +33,7 @@ void DR_16hander(UART_HandleTypeDef *huart)
 	
 {
 		if (__HAL_UART_GET_FLAG(huart, UART_FLAG_IDLE) &&
-		__HAL_UART_GET_IT_SOURCE(huart, UART_IT_IDLE))
+	   __HAL_UART_GET_IT_SOURCE(huart, UART_IT_IDLE))
 	{
 		__HAL_UART_CLEAR_IDLEFLAG(huart);
 		__HAL_DMA_DISABLE(huart->hdmarx);

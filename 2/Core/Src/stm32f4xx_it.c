@@ -70,6 +70,8 @@ extern DMA_HandleTypeDef hdma_usart6_tx;
 extern DMA_HandleTypeDef hdma_usart6_rx;
 extern UART_HandleTypeDef huart1;
 extern UART_HandleTypeDef huart6;
+extern TIM_HandleTypeDef htim6;
+
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -197,7 +199,6 @@ void SysTick_Handler(void)
   /* USER CODE BEGIN SysTick_IRQn 0 */
 
   /* USER CODE END SysTick_IRQn 0 */
-  HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */
@@ -244,7 +245,7 @@ void CAN1_RX0_IRQHandler(void)
 					__HAL_CAN_CLEAR_FLAG(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
 	}
   /* USER CODE END CAN1_RX0_IRQn 0 */
-//  HAL_CAN_IRQHandler(&hcan1);
+  HAL_CAN_IRQHandler(&hcan1);
   /* USER CODE BEGIN CAN1_RX0_IRQn 1 */
 
   /* USER CODE END CAN1_RX0_IRQn 1 */
@@ -258,10 +259,24 @@ void USART1_IRQHandler(void)
   /* USER CODE BEGIN USART1_IRQn 0 */
 DR_16hander(&huart1);
   /* USER CODE END USART1_IRQn 0 */
-//  HAL_UART_IRQHandler(&huart1);
+  HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
 
   /* USER CODE END USART1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
+  */
+void TIM6_DAC_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+
+  /* USER CODE END TIM6_DAC_IRQn 0 */
+  HAL_TIM_IRQHandler(&htim6);
+  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+
+  /* USER CODE END TIM6_DAC_IRQn 1 */
 }
 
 /**
@@ -359,20 +374,20 @@ static uint8_t rxBuf[30]; //接收缓冲区
 
   /* USER CODE END USART6_IRQn 1 */
 }
-int text_2006_speed=0;
+
 /* USER CODE BEGIN 1 */
-      void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-		  
-		  if (htim->Instance == TIM7)
-			  {
-				  	  time_every1s=time_every1ms/1000;//用1ms中断完成秒计时
-			time_every1ms++;
-				  M2006_setCurrent(text_2006_speed,0,0,0);
-//           my_2006_control();
-		       }  
-		  
-}
+//      void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
+//		  
+//		  if (htim->Instance == TIM7)
+//			  {
+//				  	  time_every1s=time_every1ms/1000;//用1ms中断完成秒计时
+//			time_every1ms++;
+////				  M2006_setCurrent(text_2006_speed,0,0,0);
+////           my_2006_control();
+//		       }  
+//		  
+//}
 	  
 	  
 	  

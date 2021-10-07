@@ -864,12 +864,12 @@ ARM Macro Assembler    Page 14
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=2\startup_stm32f427xx.d -o2\startup_stm32f427xx.o -I.\RTE\_2 -I
-C:\Users\24021\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include -IC:\
-Users\24021\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Devi
-ce\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_
-VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="STM32F427xx SETA 1" -
--list=startup_stm32f427xx.lst startup_stm32f427xx.s
+erwork --depend=2\startup_stm32f427xx.d -o2\startup_stm32f427xx.o -I..\Core\Inc
+ -I.\RTE\_2 -IC:\Users\24021\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core
+\Include -IC:\Users\24021\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.7.0\Driv
+ers\CMSIS\Device\ST\STM32F4xx\Include --predefine="__MICROLIB SETA 1" --predefi
+ne="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="STM32F4
+27xx SETA 1" --list=startup_stm32f427xx.lst startup_stm32f427xx.s
 
 
 
